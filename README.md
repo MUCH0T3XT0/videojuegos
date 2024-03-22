@@ -1,5 +1,5 @@
 # videojuegos
-Repositorio para hacer la evidencia de proyecto
+Repository to make project evidence
 ## Memory
 Horacio Villela Hernandez A01712206
 
