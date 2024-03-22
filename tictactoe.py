@@ -51,6 +51,7 @@ def floor(value):
 
 state = {'player': 0}
 players = [drawx, drawo]
+used_positions = []
 
 
 def tap(x, y):
@@ -58,10 +59,15 @@ def tap(x, y):
     x = floor(x)
     y = floor(y)
     player = state['player']
+    """Check if the box has already been taken"""
+    if (x, y) in used_positions:
+        print("Already taken, take another one")
+        return
     draw = players[player]
     draw(x, y)
     turtle.update()
     state['player'] = not player
+    used_positions.append((x, y))
 
 
 turtle.setup(420, 420, 370, 0)
