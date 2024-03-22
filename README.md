@@ -16,6 +16,7 @@ The tictactoe program will run the game with the functions of the original code 
 
 The colors changed were black for the background, green for the grid, and yellow and blue for the figures.
 Additionally, I modified the code with the help of flake8 to adapt it to the PEP8 standard.
+Finally, I merge the Tictactoe branch with the main repository branch
 
 # Pacman
 Emiliano Gomez Gonzalez A01710711 user Emiidk01
