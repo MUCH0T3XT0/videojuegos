@@ -1,14 +1,3 @@
-"""Memory, puzzle game of number pairs.
-
-Exercises:
-
-1. Count and print how many taps occur.
-2. Decrease the number of tiles to a 4x4 grid.
-3. Detect when all tiles are revealed.
-4. Center single-digit tile.
-5. Use letters instead of tiles.
-"""
-
 from random import *
 from turtle import *
 
@@ -26,6 +15,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+
 
 # Es una buena práctica utilizar comentarios descriptivos para explicar el propósito de las variables y funciones
 
@@ -68,11 +58,14 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+tap_count = 0
+
 
 # Es importante tener una estructura clara y organizada del código
 
 def draw():
-    """Draw image and tiles."""
+    """Draws the image and tiles."""
+    global tap_count
     clear()
     goto(0, 0)
     shape(car)
@@ -96,6 +89,54 @@ def draw():
     ontimer(draw, 100)
 
 # Es importante seguir convenciones de nomenclatura y utilizar nombres descriptivos para las funciones
+
+def square(x, y):
+    """Draws a white square with a black outline at (x, y)."""
+    up()
+    goto(x, y)
+    down()
+    color('black', 'white')
+    begin_fill()
+    for count in range(4):
+        forward(50)
+        left(90)
+    end_fill()
+
+
+def index(x, y):
+    """Converts (x, y) coordinates to a tiles index."""
+    return int((x + 200) // 50 + ((y + 200) // 50) * 8)
+
+
+def xy(count):
+    """Converts tiles count to (x, y) coordinates."""
+    return (count % 8) * 50 - 200, (count // 8) * 50 - 200
+
+
+def tap(x, y):
+    """Updates mark and hidden tiles based on click."""
+    global tap_count
+    tap_count += 1
+    spot = index(x, y)
+    mark = state['mark']
+
+    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
+        state['mark'] = spot
+    else:
+        hide[spot] = False
+        hide[mark] = False
+        state['mark'] = None
+
+    print("Number of taps:", tap_count)
+
+    if all_tiles_uncovered():
+        print("All tiles have been uncovered!")
+
+
+def all_tiles_uncovered():
+    """Checks if all tiles have been uncovered."""
+    return all(not tile_hidden for tile_hidden in hide)
+
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
